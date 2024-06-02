@@ -5,6 +5,9 @@ Page({
    * 页面的初始数据
    */
   data: {
+    //两个用于学生登录的变量
+    stuId:'',//学号
+    password:'',//密码
 
   },
 
@@ -13,6 +16,41 @@ Page({
    */
   onLoad(options) {
 
+  },
+
+  login(){
+    const postData={
+      stuId : this.data.stuId,
+      password : this.data.password
+
+    }
+    //向接口发出请求
+    wx.request({
+      url: 'http://localhost:3000/login',
+      data:postData,
+      method:'POST',
+      success(res){
+        console.log(res)
+        if(res.data.code == -1){
+          wx.showToast({
+            title: res.data.msg,
+            icon:'none'
+          })
+          return
+        }else{
+          wx.setStorageSync('token', res.data.data.cookie),
+          wx.showToast({
+            title: "登录成功",
+            icon:'none'
+          })
+        }
+    
+      
+       
+      }
+    })
+
+   
   },
 
   /**

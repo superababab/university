@@ -9,3 +9,7 @@
   height: 60px;
   margin-bottom: 30rpx;
 }
+
+.login button{
+  width: 100%;
+}
